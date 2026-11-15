@@ -143,10 +143,14 @@ function Adopcion() {
 
   return (
     <>
-      <section className="hero-subpagina">
-        <p className="eyebrow">CUIDADO · ADOPCIÓN RESPONSABLE · NUEVAS OPORTUNIDADES</p>
-        <h1>Cada patita merece un hogar.</h1>
-        <p>Encuentra a tu compañero ideal y conoce mascotas que esperan una familia amorosa.</p>
+      <section className="hero-subpagina hero-adopcion">
+        <div className="hero-copy">
+          <h1>Tu próxima gran amistad te espera.</h1>
+          <p>Conoce a las mascotas que esperan una familia amorosa y responsable. Explora sus historias y personalidades, y descubre a ese compañero especial que puede llenar tus días de cariño y nuevas aventuras.</p>
+        </div>
+        <div className="adopcion-hero-image" aria-hidden="true">
+          {/* PNG transparente pendiente: public/images/adopcion-persona-perro.png */}
+        </div>
       </section>
 
       <div className="management-layout">

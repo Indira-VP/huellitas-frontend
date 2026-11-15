@@ -5,16 +5,14 @@ function Inicio({ onNavigate }) {
         <div className="hero-copy">
           <p className="eyebrow">CUIDADO · ADOPCIÓN · NUEVAS OPORTUNIDADES</p>
           <h1>Cada patita merece un hogar.</h1>
-          <p>Conoce mascotas que buscan una familia y los refugios que las acompañan.</p>
-          <div className="hero-actions">
+          <p>Conoce a las mascotas que buscan una familia y a los refugios que las cuidan. Tal vez entre sus historias encuentres a tu próxima gran compañía.</p>
+          <div className="hero-actions home-actions">
             <button className="button primary" onClick={() => onNavigate('adopcion')} type="button">Ver mascotas en adopción <span aria-hidden="true">→</span></button>
             <button className="button" onClick={() => onNavigate('refugios')} type="button">Conocer refugios</button>
           </div>
         </div>
         <div className="hero-art" aria-hidden="true">
-          <span className="art-circle">🐕</span>
-          <span className="art-paw paw-top">🐾</span>
-          <span className="art-paw paw-bottom">♡</span>
+          {/* PNG transparente pendiente: public/images/perro-inicio.png */}
         </div>
       </section>
       <section className="how-section">
