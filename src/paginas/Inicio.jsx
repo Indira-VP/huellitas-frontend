@@ -12,7 +12,7 @@ function Inicio({ onNavigate }) {
           </div>
         </div>
         <div className="hero-art" aria-hidden="true">
-          {/* PNG transparente pendiente: public/images/perro-inicio.png */}
+          <img src="/images/ilustracion_inicio.png" alt="" />
         </div>
       </section>
       <section className="how-section">

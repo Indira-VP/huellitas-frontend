@@ -32,6 +32,7 @@ button { cursor: pointer; }
 .button:disabled, .refresh:disabled { cursor: wait; opacity: .65; }
 .button.primary { border-color: #164b34; background: #164b34; color: white; }
 .hero-art { position: absolute; top: 0; right: 4%; width: 32%; height: 100%; }
+.hero-art img { display: block; width: 100%; height: 100%; object-fit: contain; }
 .how-section { padding: 68px 0 20px; text-align: center; }
 .how-section h2 { margin: 6px 0 10px; color: #164b34; font-size: clamp(25px, 3vw, 36px); }
 .section-intro { max-width: 660px; margin: 0 auto; color: #667168; font-size: 14px; line-height: 1.6; }
@@ -46,7 +47,8 @@ button { cursor: pointer; }
 .hero-adopcion { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(220px, .85fr); gap: 30px; background: #f0f3e9; }
 .hero-adopcion .hero-copy { max-width: 680px; }
 .hero-adopcion .hero-copy > p { margin-bottom: 0; }
-.adopcion-hero-image { min-height: 170px; }
+.adopcion-hero-image { display: flex; min-width: 0; min-height: 170px; align-items: center; justify-content: center; }
+.adopcion-hero-image img { display: block; width: 100%; max-width: 440px; height: 230px; object-fit: contain; }
 .hero-subpagina h1 { font-size: clamp(33px, 4vw, 49px); }
 .hero-adopcion h1 { font-size: clamp(36px, 5vw, 58px); }
 .management-layout { display: grid; grid-template-columns: minmax(310px, .78fr) minmax(0, 1.35fr); gap: 28px; align-items: start; }
@@ -101,6 +103,7 @@ button { cursor: pointer; }
   .hero-adopcion h1 { font-size: 37px; }
   .hero-adopcion { grid-template-columns: 1fr; gap: 0; }
   .adopcion-hero-image { min-height: 100px; }
+  .adopcion-hero-image img { height: 180px; }
   .panel { padding: 20px; }
   .record-card { flex-wrap: wrap; }
   .record-actions { width: 100%; justify-content: flex-end; }

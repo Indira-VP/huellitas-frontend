@@ -35,6 +35,7 @@ function Adopcion() {
   const [cargando, setCargando] = useState(true)
   const [guardando, setGuardando] = useState(false)
   const [error, setError] = useState('')
+  const [errorRefugios, setErrorRefugios] = useState('')
   const [aviso, setAviso] = useState('')
 
   async function cargarMascotas() {
@@ -54,8 +55,10 @@ function Adopcion() {
     try {
       const respuesta = await fetch(`${API}/refugios/`)
       setRefugios(obtenerLista(await leerRespuesta(respuesta)))
-    } catch {
+      setErrorRefugios('')
+    } catch (problema) {
       setRefugios([])
+      setErrorRefugios(`No pudimos cargar los refugios. ${problema.message}`)
     }
   }
 
@@ -149,7 +152,7 @@ function Adopcion() {
           <p>Conoce a las mascotas que esperan una familia amorosa y responsable. Explora sus historias y personalidades, y descubre a ese compañero especial que puede llenar tus días de cariño y nuevas aventuras.</p>
         </div>
         <div className="adopcion-hero-image" aria-hidden="true">
-          {/* PNG transparente pendiente: public/images/adopcion-persona-perro.png */}
+          <img src="/images/ilustracion_adopcion.png" alt="" />
         </div>
       </section>
 
@@ -169,6 +172,7 @@ function Adopcion() {
               <label>Estado<select name="estado" value={formulario.estado} onChange={cambiarCampo}><option>Disponible</option><option>En adopción</option><option>Adoptada</option></select></label>
             </div>
             <label>Refugio asignado<select name="refugio" value={formulario.refugio} onChange={cambiarCampo} required><option value="" disabled>{refugios.length ? 'Elige un refugio' : 'No hay refugios disponibles'}</option>{refugios.map((refugio) => <option key={refugio.id} value={refugio.id}>{refugio.nombre}</option>)}</select></label>
+            {errorRefugios && <p className="notice error" role="alert">{errorRefugios}</p>}
             <label>Descripción y personalidad<textarea name="descripcion" value={formulario.descripcion} onChange={cambiarCampo} rows="3" placeholder="Cuéntanos sobre su historia, personalidad o cuidados especiales…" /></label>
             {error && <p className="notice error" role="alert">{error}</p>}
             {aviso && <p className="notice success" role="status">{aviso}</p>}
