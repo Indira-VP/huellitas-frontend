@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import './Refugios.css'
 
 const API = 'http://127.0.0.1:8000/api'
 const formularioVacio = { nombre: '', direccion: '', telefono: '' }
@@ -16,7 +17,9 @@ async function leerRespuesta(respuesta) {
     const detalle = datos && typeof datos === 'object'
       ? Object.values(datos).flat().join(' ')
       : ''
-    throw new Error(detalle || `No se pudo completar la solicitud (${respuesta.status}).`)
+    const problema = new Error(detalle || `No se pudo completar la solicitud (${respuesta.status}).`)
+    problema.status = respuesta.status
+    throw problema
   }
 
   return datos
@@ -27,6 +30,7 @@ function Refugios() {
   const [formulario, setFormulario] = useState(formularioVacio)
   const [cargando, setCargando] = useState(true)
   const [guardando, setGuardando] = useState(false)
+  const [eliminandoId, setEliminandoId] = useState(null)
   const [error, setError] = useState('')
   const [aviso, setAviso] = useState('')
 
@@ -77,9 +81,33 @@ function Refugios() {
     }
   }
 
+  async function eliminarRefugio(refugio) {
+    if (!window.confirm(`¿Quieres eliminar el refugio ${refugio.nombre}?`)) return
+
+    setEliminandoId(refugio.id)
+    setError('')
+    setAviso('')
+
+    try {
+      const respuesta = await fetch(`${API}/refugios/${refugio.id}/`, {
+        method: 'DELETE',
+      })
+      await leerRespuesta(respuesta)
+      setAviso('Refugio eliminado correctamente.')
+      await cargarRefugios()
+    } catch (problema) {
+      const detalle = problema.status >= 500
+        ? 'El servidor no pudo completar la eliminación. Si hay mascotas asociadas, puede estar impidiéndola.'
+        : problema.message
+      setError(`No pudimos eliminar el refugio. ${detalle}`)
+    } finally {
+      setEliminandoId(null)
+    }
+  }
+
   return (
     <>
-      <section className="hero-subpagina">
+      <section className="hero-subpagina hero-refugios">
         <div className="hero-copy">
           <p className="eyebrow">RED DE APOYO ANIMAL · REFUGIOS UNIDOS</p>
           <h1>Refugios y Hogares de Paso.</h1>
@@ -171,6 +199,16 @@ function Refugios() {
                         <div className="record-title"><h3>{refugio.nombre}</h3></div>
                         <p>{refugio.direccion}</p>
                         <small>{refugio.telefono}</small>
+                      </div>
+                      <div className="record-actions">
+                        <button
+                          className="button delete"
+                          type="button"
+                          onClick={() => eliminarRefugio(refugio)}
+                          disabled={eliminandoId !== null}
+                        >
+                          {eliminandoId === refugio.id ? 'Eliminando…' : 'Eliminar'}
+                        </button>
                       </div>
                     </article>
                   ))}
